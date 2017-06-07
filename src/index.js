@@ -3,15 +3,15 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import Promise from 'bluebird'
 import bodyParser from 'body-parser'
-import saveDataInDb from './saveDataInDb'
 import User from './models/User'
-import Meeting from './models/Meeting',
+import Meeting from './models/Meeting'
 import Community from './models/Community'
 
 mongoose.Promise = Promise
 mongoose.connect('mongodb://rupor.space/ruporDB');
 
 const app = express()
+var api = require('./api.js')
 app.use(bodyParser.json())
 app.use(cors())
 
@@ -21,23 +21,37 @@ app.get('/users', async (req, res) => {
 })
 
 app.get('/meetings', async (req, res) => {
-	const meetings = await Meeting.find().populate('creator')
+	const meetings = await Meeting.find()
+  .populate('creator')
+  .populate('participants')
 	return res.json(meetings)
 })
 
-app.post('/data', async (req, res) => {
-	const data = req.body
+app.get('/maxMeetingId', async (req, res) => {
+  const maxMeetingId = await Meeting.find().sort({
+    'id': -1
+  }).limit(1)
+  return res.json(maxMeetingId[0].id)
+})
 
-	const user = await User.findOne({
-		name: data.user.name
-	})
-	if (user) return res.status(400).send('user.name exists')
+app.post('/meeting', async (req, res) => {
+	const data = req.body
 	try {
-		const result = await saveDataInDb(data)
+		const result = await api.addMeeting(data)
 		return res.json(result)
 	} catch(err) {
-		return res.status(500).json(err)
+		return res.status(400).json(err)
 	}
+})
+
+app.post('/user', async (req, res) => {
+  const data = req.body
+  try {
+    const result = await api.addUser(data)
+    return res.json(data)
+  } catch (err) {
+    return res.status(400).json(err)
+  }
 })
 
 app.listen(3000, 'localhost', () => {

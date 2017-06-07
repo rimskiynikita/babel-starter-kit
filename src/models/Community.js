@@ -6,14 +6,14 @@ const { Schema } = mongoose
 const CommunitySchema = new Schema({
   id: Number,
   name: String,
-  // meetDescription: String,
-  image: Buffer,
+  meetDescription: String,
+  image: String,
   creator: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
   participants: {
-    type: [Schema.Types.ObjectId],
+    type: Schema.Types.ObjectId,
     ref: 'User'
   }
 }, {

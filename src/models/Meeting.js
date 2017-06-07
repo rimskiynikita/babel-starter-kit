@@ -11,15 +11,15 @@ const MeetingSchema = new Schema({
     default: 'ул. Волхонка, 12'
   },
   meetDescription: String,
-  image: Buffer,
+  imageUrl: String,
   creator: {
 	  type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  participants: {
-    type: [Schema.Types.ObjectId],
+  participants: [{
+    type: Schema.Types.ObjectId,
     ref: 'User'
-  },
+  }],
   community: {
     type: Schema.Types.ObjectId,
     ref: 'Community'
@@ -32,8 +32,8 @@ const MeetingSchema = new Schema({
 	timestamps: true
 })
 
-// UserSchema.methods.toJSON = function() {
-// 	return _.pick(this, ['name'])
-// }
+MeetingSchema.methods.toJSON = function() {
+	return _.pick(this, ['id', 'name', 'address', 'meetDescription', 'creator', 'participants', 'community', 'date', 'imageUrl'])
+}
 
 export default mongoose.model('Meeting', MeetingSchema)

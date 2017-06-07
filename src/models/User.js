@@ -4,25 +4,21 @@ import _ from 'lodash'
 const { Schema } = mongoose
 
 const UserSchema = new Schema({
-	id: Number,
+  id: Number,
   firstName: String,
   lastName: String,
-  image: Buffer,
-  age: Number,
+  image: String,
+  age: String,
   api: {
     type: String,
     enum: ['none', 'vk', 'fb'],
-  },
-  vkFriends: {
-    type: [Schema.Types.ObjectId],
-    ref: 'User'
   }
 }, {
 	timestamps: true
 })
 
-// PetSchema.methods.toJSON = function() {
-// 	return _.pick(this, ['name', 'type', 'owner'])
-// }
+UserSchema.methods.toJSON = function() {
+	return _.pick(this, ['id', 'firstName', 'lastName', 'age', 'api'])
+}
 
 export default mongoose.model('User', UserSchema)
