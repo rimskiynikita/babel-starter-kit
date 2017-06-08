@@ -11,7 +11,6 @@ const MeetingSchema = new Schema({
     default: 'ул. Волхонка, 12'
   },
   meetDescription: String,
-  imageUrl: String,
   creator: {
 	  type: Schema.Types.ObjectId,
     ref: 'User'
@@ -33,7 +32,7 @@ const MeetingSchema = new Schema({
 })
 
 MeetingSchema.methods.toJSON = function() {
-	return _.pick(this, ['id', 'name', 'address', 'meetDescription', 'creator', 'participants', 'community', 'date', 'imageUrl'])
+	return _.pick(this, ['id', 'name', 'address', 'meetDescription', 'creator', 'participants', 'community', 'date', 'image'])
 }
 
 export default mongoose.model('Meeting', MeetingSchema)

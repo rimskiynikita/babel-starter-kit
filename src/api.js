@@ -36,14 +36,6 @@ exports.addMeeting = async function(data) {
 
     var imageBuffer = await new Buffer(data.image, 'base64')
     console.log(imageBuffer)
-    fs.writeFile('meeting'+data.id+'.jpeg', data.image, {
-      encoding: 'base64'
-    }, function(err) {
-      if (err) throw err
-      console.log('image saved')
-    })
-
-    var imagePath = '/Users/nikitarimskij/Desktop/Server/babel-starter-kit/'+'meeting'+data.id+'.jpeg'
 
     var meetingData = {
       id: data.id,
@@ -52,7 +44,8 @@ exports.addMeeting = async function(data) {
       meetDescription: data.meetDescription,
       creator: creator._id,
       participants: participants,
-      imageUrl: imagePath
+      image: imageBuffer,
+      date: data.date
     }
 
     var meeting = new Meeting(meetingData)
