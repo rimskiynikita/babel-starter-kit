@@ -54,6 +54,6 @@ app.post('/user', async (req, res) => {
   }
 })
 
-app.listen(3000, 'localhost', () => {
-	console.log('You are listening to port 3000!')
+app.listen(80, '138.197.101.36', () => {
+	console.log('You are listening to rupor.space port 80!')
 })
