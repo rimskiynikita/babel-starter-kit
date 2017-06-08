@@ -30,8 +30,12 @@ app.get('/meetings', async (req, res) => {
 app.get('/maxMeetingId', async (req, res) => {
   const maxMeetingId = await Meeting.find().sort({
     'id': -1
-  }).limit(1)
-  return res.json(maxMeetingId[0].id)
+  }).limit(1)[0].id
+  if maxMeetingId != null {
+    return res.json(maxMeetingId[0].id)
+  } else {
+    return res.json(0)
+  }
 })
 
 app.post('/meeting', async (req, res) => {
