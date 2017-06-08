@@ -21,7 +21,9 @@ app.get('/users', async (req, res) => {
 })
 
 app.get('/meetings', async (req, res) => {
-	const meetings = await Meeting.find()
+  const offset = await parseInt(req.params.offset)
+  const count = await parseInt(req.params.count)
+	const meetings = await Meeting.find().skip(offset).limit(count)
   .populate('creator')
   .populate('participants')
 	return res.json(meetings)
