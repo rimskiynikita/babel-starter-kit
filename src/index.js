@@ -27,16 +27,16 @@ app.get('/meetings', async (req, res) => {
 	return res.json(meetings)
 })
 
-// app.get('/maxMeetingId', async (req, res) => {
-//   const maxMeetingId = await Meeting.find().sort({
-//     'id': -1
-//   }).limit(1)
-//   if maxMeetingId.count == 0 {
-//     return res.json(0)
-//   } else {
-//     return res.json(maxMeetingId[0].id)
-//   }
-// })
+app.get('/maxMeetingId', async (req, res) => {
+  const maxMeetingId = await Meeting.find().sort({
+    'id': -1
+  }).limit(1)
+  if (maxMeetingId.count == 0) {
+    return res.json(0)
+  } else {
+    return res.json(maxMeetingId[0].id)
+  }
+})
 
 app.post('/meeting', async (req, res) => {
 	const data = req.body
