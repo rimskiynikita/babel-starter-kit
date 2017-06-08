@@ -18,7 +18,7 @@ const UserSchema = new Schema({
 })
 
 UserSchema.methods.toJSON = function() {
-	return _.pick(this, ['id', 'firstName', 'lastName', 'age', 'api, image'])
+	return _.pick(this, ['id', 'firstName', 'lastName', 'age', 'api', 'image'])
 }
 
 export default mongoose.model('User', UserSchema)
