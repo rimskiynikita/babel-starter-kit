@@ -34,9 +34,6 @@ exports.addMeeting = async function(data) {
       })
     }
 
-    var imageBuffer = await new Buffer(data.image, 'base64')
-    console.log(imageBuffer)
-
     var meetingData = {
       id: data.id,
       name: data.name,
@@ -44,7 +41,7 @@ exports.addMeeting = async function(data) {
       meetDescription: data.meetDescription,
       creator: creator._id,
       participants: participants,
-      image: imageBuffer,
+      image: data.image,
       date: data.date
     }
 

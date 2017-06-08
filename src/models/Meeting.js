@@ -6,7 +6,7 @@ const { Schema } = mongoose
 const MeetingSchema = new Schema({
   id: Number,
 	name: String,
-  image: Buffer,
+  image: String,
   address: {
 	  type: String,
     default: 'ул. Волхонка, 12'

@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   id: Number,
   firstName: String,
   lastName: String,
-  image: Buffer,
+  image: String,
   age: String,
   api: {
     type: String,
