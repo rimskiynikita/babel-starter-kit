@@ -32,7 +32,7 @@ app.get('/maxMeetingId', async (req, res) => {
     'id': -1
   }).limit(1)[0].id
   if maxMeetingId != null {
-    return res.json(maxMeetingId[0].id)
+    return res.json(maxMeetingId)
   } else {
     return res.json(0)
   }
