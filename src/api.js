@@ -44,7 +44,7 @@ exports.addMeeting = async function(data) {
       meetDescription: data.meetDescription,
       creator: creator._id,
       participants: participants,
-      image: imageBuffer.data,
+      image: imageBuffer,
       date: data.date
     }
 
