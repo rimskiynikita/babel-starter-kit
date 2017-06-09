@@ -29,11 +29,27 @@ app.get('/meetings/:offset/:count', async (req, res) => {
 	return res.json(meetings)
 })
 
+app.get('/community/:offset/:count', async (req, res) => {
+  const offset = await parseInt(req.params.offset)
+  const count = await parseInt(req.params.count)
+  const communities = await Community.find().skip(offset).limit(count)
+  .populate('creator')
+  .populate('participants')
+  return res.json(communities)
+})
+
 app.get('/maxMeetingId', async (req, res) => {
   const maxMeetingId = await Meeting.find().sort({
     'id': -1
   }).limit(1)
   return res.json(maxMeetingId[0].id)
+})
+
+app.get('/maxCommunityId', async (req, res) => {
+  const maxCommunityId = await Community.find().sort({
+    'id': -1
+  }).limit(1)
+  return res.json(maxCommunityId[0].id)
 })
 
 app.post('/meeting', async (req, res) => {
@@ -44,6 +60,16 @@ app.post('/meeting', async (req, res) => {
 	} catch(err) {
 		return res.status(400).json(err)
 	}
+})
+
+app.post('/community', async (req, res) => {
+  const data = req.body
+  try {
+    const result = await api.addCommunty(data)
+    return res.json(result)
+  } catch(err) {
+    return res.status(400).json(err)
+}
 })
 
 app.post('/user', async (req, res) => {

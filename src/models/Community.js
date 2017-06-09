@@ -6,22 +6,22 @@ const { Schema } = mongoose
 const CommunitySchema = new Schema({
   id: Number,
   name: String,
-  meetDescription: String,
+  communityDescription: String,
   image: String,
   creator: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  participants: {
+  participants: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
-  }
+  }]
 }, {
   timestamps: true
 })
 
-// UserSchema.methods.toJSON = function() {
-// 	return _.pick(this, ['name'])
-// }
+CommunitySchema.methods.toJSON = function() {
+	return _.pick(this, ['id', 'name', 'communityDescription', 'image', 'creator', 'participants'])
+}
 
 export default mongoose.model('Community', CommunitySchema)
