@@ -23,7 +23,12 @@ app.get('/users', async (req, res) => {
 app.get('/meetings/:offset/:count', async (req, res) => {
   const offset = await parseInt(req.params.offset)
   const count = await parseInt(req.params.count)
-	const meetings = await Meeting.find().skip(offset).limit(count)
+	const meetings = await Meeting.find({
+  "$gte": Date.now
+	})
+  .sort('-date')
+  .skip(offset)
+  .limit(count)
   .populate('creator')
   .populate('participants')
 	return res.json(meetings)
