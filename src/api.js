@@ -2,8 +2,6 @@ import User from './models/User'
 import Meeting from './models/Meeting'
 import Community from './models/Community'
 
-var fs = require('fs')
-
 exports.addMeeting = async function(data) {
   try {
 

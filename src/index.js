@@ -34,7 +34,7 @@ app.get('/meetings/:offset/:count', async (req, res) => {
 	return res.json(meetings)
 })
 
-app.get('/community/:offset/:count', async (req, res) => {
+app.get('/communities/:offset/:count', async (req, res) => {
   const offset = await parseInt(req.params.offset)
   const count = await parseInt(req.params.count)
   const communities = await Community.find().skip(offset).limit(count)
