@@ -85,8 +85,7 @@ exports.addCommunity = async function(data) {
     var communityData = {
       id: data.id,
       name: data.name,
-      address: data.address,
-      communityDescription: data.meetDescription,
+      communityDescription: data.communityDescription,
       creator: creator._id,
       participants: participants,
       image: data.image,
