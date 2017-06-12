@@ -4,7 +4,6 @@ import Community from './models/Community'
 
 exports.addMeeting = async function(data) {
   try {
-
     var creator = await User.findOne({
       id: data.creator.id
     }, function(err, user) {
@@ -21,6 +20,7 @@ exports.addMeeting = async function(data) {
         console.log(community)
       })
     }
+
     var participants = []
     for (var participant of data.participants) {
       var user = await User.findOne({
@@ -110,7 +110,7 @@ exports.addCommunity = async function(data) {
   }
 }
 
-  exports.addUser = async function(data) {
+exports.addUser = async function(data) {
     try {
       var user = new User(data)
       await User.update({

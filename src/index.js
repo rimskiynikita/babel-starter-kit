@@ -70,11 +70,11 @@ app.post('/meeting', async (req, res) => {
 app.post('/community', async (req, res) => {
   const data = req.body
   try {
-    const result = await api.addCommunty(data)
+    const result = await api.addCommunity(data)
     return res.json(result)
   } catch(err) {
     return res.status(400).json(err)
-}
+  }
 })
 
 app.post('/user', async (req, res) => {
@@ -86,6 +86,10 @@ app.post('/user', async (req, res) => {
     return res.status(400).json(err)
   }
 })
+
+// app.listen(3000, () => {
+//   console.log('You are listening to port 3000')
+// })
 
 app.listen(80, '138.197.101.36', () => {
 	console.log('You are listening to rupor.space port 80!')
