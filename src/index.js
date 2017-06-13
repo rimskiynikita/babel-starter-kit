@@ -43,6 +43,23 @@ app.get('/communities/:offset/:count', async (req, res) => {
   return res.json(communities)
 })
 
+app.get('/allMyMeetings/:userId', async (req, res) => {
+  const userId = await parseInt(req.params.userId)
+  var me = await User.findOne({
+    id: userId
+  }, function(err, user) {
+    if (err) throw err
+    console.log(user)
+  })
+  const meetings = await Meeting.find({
+    participants: { "$in" : [me]}
+  })
+  .sort('-date')
+  .populate('creator')
+  .populate('participants')
+return res.json(meetings)
+})
+
 app.get('/maxMeetingId', async (req, res) => {
   const maxMeetingId = await Meeting.find().sort({
     'id': -1
