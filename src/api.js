@@ -12,8 +12,7 @@ exports.addMeeting = async function(data) {
     })
 
     if (data.community != null) {
-      var community = await
-      Community.findOne({
+      var community = await Community.findOne({
         id: data.community.id
       }, function (err, community) {
         if (err) throw err
@@ -31,16 +30,30 @@ exports.addMeeting = async function(data) {
         participants.push(user._id)
       })
     }
-
-    var meetingData = {
-      id: data.id,
-      name: data.name,
-      address: data.address,
-      meetDescription: data.meetDescription,
-      creator: creator._id,
-      participants: participants,
-      image: data.image,
-      date: data.date
+    var meetingData = {}
+    if (data.community != null) {
+      meetingData = {
+        id: data.id,
+        name: data.name,
+        address: data.address,
+        meetDescription: data.meetDescription,
+        creator: creator._id,
+        participants: participants,
+        image: data.image,
+        date: data.date,
+        community: community._id
+      }
+    } else {
+      meetingData = {
+        id: data.id,
+        name: data.name,
+        address: data.address,
+        meetDescription: data.meetDescription,
+        creator: creator._id,
+        participants: participants,
+        image: data.image,
+        date: data.date,
+      }
     }
 
     var meeting = new Meeting(meetingData)
