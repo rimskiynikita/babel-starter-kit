@@ -203,6 +203,17 @@ app.get('/user/:userId', async (req, res) => {
   return res.json(user)
 })
 
+app.get('/community/:communityId', async (req, res) => {
+  const communityId = await parseInt(req,params.communityId)
+var community = await Community.findOne({
+  id: communityId
+}, function(err, user) {
+  if (err) throw err
+  console.log(community)
+})
+return res.json(community)
+})
+
 app.get('/removeCommunityParticipant/:communityId/:userId', async (req, res) => {
   const communityId = await parseInt(req.params.communityId)
 const userId = await parseInt(req.params.userId)
