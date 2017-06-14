@@ -62,23 +62,31 @@ return res.json(meetings)
 })
 
 app.get('/maxMeetingId', async (req, res) => {
-  const maxMeetingId = await Meeting.find().sort({
-    'id': -1
-  }).limit(1)
-  if (maxMeetingId.count == 0) {
-    return res.json(-1)
+  var count = await Meeting.count({}, function(err, count) {
+    if (err) throw err
+    console.log(count)
+  })
+  if (count == 0) {
+  return res.json(-1)
   } else {
-    return res.json(maxMeetingId[0].id)
+    const maxMeetingId = await Meeting.find().sort({
+      'id': -1
+    }).limit(1)
+  return res.json(maxMeetingId[0].id)
   }
 })
 
 app.get('/maxCommunityId', async (req, res) => {
+  var count = await Community.count({}, function(err, count) {
+    if (err) throw err
+    console.log(count)
+  })
+  if (count == 0) {
+    return res.json(-1)
+  } else {
   const maxCommunityId = await Community.find().sort({
     'id': -1
   }).limit(1)
-  if (maxCommunityId.count == 0) {
-    return res.json(-1)
-  } else {
     return res.json(maxCommunityId[0].id)
   }
 })
