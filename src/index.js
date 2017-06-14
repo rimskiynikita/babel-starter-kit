@@ -66,7 +66,7 @@ app.get('/maxMeetingId', async (req, res) => {
     'id': -1
   }).limit(1)
   if (maxMeetingId.count == 0) {
-    return res.json(0)
+    return res.json(-1)
   } else {
     return res.json(maxMeetingId[0].id)
   }
@@ -77,7 +77,7 @@ app.get('/maxCommunityId', async (req, res) => {
     'id': -1
   }).limit(1)
   if (maxCommunityId.count == 0) {
-    return res.json(0)
+    return res.json(-1)
   } else {
     return res.json(maxCommunityId[0].id)
   }
