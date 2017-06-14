@@ -204,7 +204,7 @@ app.get('/user/:userId', async (req, res) => {
 })
 
 app.get('/community/:communityId', async (req, res) => {
-  const communityId = await parseInt(req,params.communityId)
+  const communityId = await parseInt(req.params.communityId)
 var community = await Community.findOne({
   id: communityId
 }, function(err, user) {
