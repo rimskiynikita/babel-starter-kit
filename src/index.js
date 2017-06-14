@@ -210,7 +210,8 @@ var community = await Community.findOne({
 }, function(err, user) {
   if (err) throw err
   console.log(community)
-})
+}).populate('participants')
+
 return res.json(community)
 })
 
