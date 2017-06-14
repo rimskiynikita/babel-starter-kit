@@ -192,6 +192,17 @@ await Community.update({
 return res.json(me)
 })
 
+app.get('/user/:userId', async (req, res) => {
+  const userId = await parseInt(req,params.userId)
+  var user = await User.findOne({
+    id: userId
+  }, function(err, user) {
+    if (err) throw err
+    console.log(user)
+  })
+  return res.json(user)
+})
+
 app.get('/removeCommunityParticipant/:communityId/:userId', async (req, res) => {
   const communityId = await parseInt(req.params.communityId)
 const userId = await parseInt(req.params.userId)
