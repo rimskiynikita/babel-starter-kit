@@ -134,16 +134,10 @@ app.get('/communityMeetings/:communityId', async (req, res) => {
   const communityId = await parseInt(req.params.communityId)
   var community = await Community.findOne({
     id: communityId
-  }, function() {
-    if (err) throw err
-    console.log(community)
   })
 
   var meetings = await Meeting.find({
     community: community._id
-  }, function() {
-    if (err) throw err
-    console.log(community)
   })
   return res.json(meetings)
 })
