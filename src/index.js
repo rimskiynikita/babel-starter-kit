@@ -31,6 +31,7 @@ app.get('/meetings/:offset/:count', async (req, res) => {
   .limit(count)
   .populate('creator')
   .populate('participants')
+  .populate('community')
 	return res.json(meetings)
 })
 
