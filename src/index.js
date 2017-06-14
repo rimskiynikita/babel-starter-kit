@@ -104,6 +104,106 @@ app.post('/user', async (req, res) => {
   }
 })
 
+app.get('/addMeetingParticipant/:meetingId/:userId', async (req, res) => {
+  const meetingId = await parseInt(req.params.meetingId)
+  const userId = await parseInt(req.params.userId)
+  var me = await User.findOne({
+    id: userId
+  }, function(err, user) {
+    if (err) throw err
+      console.log(user)
+    })
+
+  await Meeting.update({
+    id: meetingId
+  },
+    {
+      $push: {
+        participants: me._id
+      }
+    },
+  function(err, num, n) {
+    if(err) throw err
+    console.log(num, n)
+  })
+  return res.json(me)
+})
+
+app.get('/removeMeetingParticipant/:meetingId/:userId', async (req, res) => {
+  const meetingId = await parseInt(req.params.meetingId)
+  const userId = await parseInt(req.params.userId)
+  var me = await User.findOne({
+    id: userId
+  }, function(err, user) {
+    if (err) throw err
+    console.log(user)
+  })
+
+  await Meeting.update({
+    id: meetingId
+  },
+  {
+    $pull: {
+      participants: me._id
+    }
+  },
+  function(err, num, n) {
+    if(err) throw err
+    console.log(num, n)
+  })
+  return res.json(me)
+})
+
+app.get('/addCommunityParticipant/:communityId/:userId', async (req, res) => {
+  const communityId = await parseInt(req.params.communityId)
+const userId = await parseInt(req.params.userId)
+var me = await User.findOne({
+  id: userId
+}, function(err, user) {
+  if (err) throw err
+  console.log(user)
+})
+
+await Community.update({
+    id: communityId
+  },
+  {
+    $push: {
+      participants: me._id
+    }
+  },
+  function(err, num, n) {
+    if(err) throw err
+    console.log(num, n)
+  })
+return res.json(me)
+})
+
+app.get('/removeCommunityParticipant/:communityId/:userId', async (req, res) => {
+  const communityId = await parseInt(req.params.communityId)
+const userId = await parseInt(req.params.userId)
+var me = await User.findOne({
+  id: userId
+}, function(err, user) {
+  if (err) throw err
+  console.log(user)
+})
+
+await Community.update({
+    id: communityId
+  },
+  {
+    $pull: {
+      participants: me._id
+    }
+  },
+  function(err, num, n) {
+    if(err) throw err
+    console.log(num, n)
+  })
+return res.json(me)
+})
+
 // app.listen(3000, () => {
 //   console.log('You are listening to port 3000')
 // })
