@@ -25,8 +25,7 @@ const MeetingSchema = new Schema({
     ref: 'Community'
   },
   date: {
-    type: Date,
-    default: Date.now
+    type: String,
   }
 }, {
 	timestamps: true
