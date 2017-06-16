@@ -61,6 +61,22 @@ app.get('/allMyMeetings/:userId', async (req, res) => {
 return res.json(meetings)
 })
 
+app.get('/allMyCommunities/:userId', async (req, res) => {
+  const userId = await parseInt(req.params.userId)
+var me = await User.findOne({
+  id: userId
+}, function(err, user) {
+  if (err) throw err
+  console.log(user)
+})
+const communities = await Community.find({
+  participants: { "$in" : [me]}
+})
+  .populate('creator')
+  .populate('participants')
+return res.json(communities)
+})
+
 app.get('/maxMeetingId', async (req, res) => {
   var count = await Meeting.count({}, function(err, count) {
     if (err) throw err
