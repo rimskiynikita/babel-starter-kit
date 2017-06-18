@@ -70,11 +70,26 @@ var me = await User.findOne({
   console.log(user)
 })
 const communities = await Community.find({
-  participants: { "$in" : [me]}
+  participants: { '$in' : [me]}
 })
   .populate('creator')
   .populate('participants')
 return res.json(communities)
+})
+
+app.get('/myFollowers/:userId', async (req, res) => {
+  const userId = await parseInt(req.params.userId)
+  var me = await User.findOne({
+    id: userId
+  }, function(err, user) {
+    if (err) throw err
+    console.log(user)
+  })
+  const followers = await User.find({
+    following: {'$in' : [me] }
+  })
+  .populate('following')
+  return res.json(followers)
 })
 
 app.get('/maxMeetingId', async (req, res) => {
