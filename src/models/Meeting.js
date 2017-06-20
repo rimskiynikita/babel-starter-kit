@@ -11,6 +11,8 @@ const MeetingSchema = new Schema({
 	  type: String,
     default: 'ул. Волхонка, 12'
   },
+  latitude: Number,
+  longtitude: Number,
   meetDescription: String,
   creator: {
 	  type: Schema.Types.ObjectId,
@@ -32,7 +34,7 @@ const MeetingSchema = new Schema({
 })
 
 MeetingSchema.methods.toJSON = function() {
-	return _.pick(this, ['id', 'name', 'address', 'meetDescription', 'creator', 'participants', 'community', 'date', 'image'])
+	return _.pick(this, ['id', 'name', 'address', 'latitude', 'longtitude', 'meetDescription', 'creator', 'participants', 'community', 'date', 'image'])
 }
 
 export default mongoose.model('Meeting', MeetingSchema)
