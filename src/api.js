@@ -36,6 +36,8 @@ exports.addMeeting = async function(data) {
         id: data.id,
         name: data.name,
         address: data.address,
+        longtitude: data.longtitude,
+        latitude: data.latitude,
         meetDescription: data.meetDescription,
         creator: creator._id,
         participants: participants,
