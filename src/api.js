@@ -41,7 +41,6 @@ exports.addMeeting = async function(data) {
         meetDescription: data.meetDescription,
         creator: creator._id,
         participants: participants,
-        image: data.image,
         date: data.date,
         community: community._id
       }
@@ -53,7 +52,6 @@ exports.addMeeting = async function(data) {
         meetDescription: data.meetDescription,
         creator: creator._id,
         participants: participants,
-        image: data.image,
         date: data.date,
       }
     }
@@ -102,8 +100,7 @@ exports.addCommunity = async function(data) {
       name: data.name,
       communityDescription: data.communityDescription,
       creator: creator._id,
-      participants: participants,
-      image: data.image,
+      participants: participants
     }
 
     var community = new Community(communityData)
@@ -143,7 +140,6 @@ exports.addUser = async function(data) {
         firstName: data.firstName,
         lastName: data.lastName,
         following: following,
-        image: data.image,
         age: data.age,
         api: data.api
       }
