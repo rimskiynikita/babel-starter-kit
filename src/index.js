@@ -12,9 +12,13 @@ mongoose.Promise = Promise
 mongoose.connect('mongodb://rupor.space/ruporDB');
 
 const app = express()
-var api = require('./api.js')
+const fs = require('fs')
+const api = require('./api.js')
 app.use(bodyParser.json())
 app.use(cors())
+var path = require('path');
+var dir = path.join(__dirname+'/../uploads/');
+app.use(express.static(dir))
 
 var Storage = multer.diskStorage({
   destination: function(req, file, callback) {
@@ -30,7 +34,7 @@ var upload = multer({
   storage: Storage
 }).single('userFile')
 
-app.post('/image', async (req, res) => {
+app.post('/uploadImage', async (req, res) => {
   console.log(req.file)
   await upload(req, res, function (err) {
     if (err) {
@@ -41,6 +45,7 @@ app.post('/image', async (req, res) => {
 })
 
 app.get('/users', async (req, res) => {
+  console.log(dir)
 	const users = await User.find()
 	return res.json(users)
 })
@@ -312,10 +317,10 @@ await Community.update({
 return res.json(me)
 })
 
-app.listen(3000, () => {
-  console.log('You are listening to port 3000')
-})
-
-// app.listen(80, '138.197.101.36', () => {
-// 	console.log('You are listening to rupor.space port 80!')
+// app.listen(3000, () => {
+//   console.log('You are listening to port 3000')
 // })
+
+app.listen(80, '138.197.101.36', () => {
+	console.log('You are listening to rupor.space port 80!')
+})
