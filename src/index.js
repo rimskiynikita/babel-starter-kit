@@ -60,6 +60,12 @@ app.get('/meetings/:offset/:count', async (req, res) => {
   .populate('creator')
   .populate('participants')
   .populate('community')
+  .populate({
+    path: 'community',
+    populate: {
+      path: creator
+    }
+  })
 	return res.json(meetings)
 })
 
