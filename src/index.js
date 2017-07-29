@@ -30,10 +30,6 @@ var Storage = multer.diskStorage({
   }
 })
 
-var upload = multer({
-  storage: Storage
-}).single('userFile')
-
 app.post('/uploadImage', async (req, res) => {
   await upload(req, res, function (err) {
     if (err) {
