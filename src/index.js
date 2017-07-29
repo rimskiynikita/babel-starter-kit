@@ -35,7 +35,6 @@ var upload = multer({
 }).single('userFile')
 
 app.post('/uploadImage', async (req, res) => {
-  console.log(req.file)
   await upload(req, res, function (err) {
     if (err) {
       return res.end('smth went wrong')
@@ -45,7 +44,6 @@ app.post('/uploadImage', async (req, res) => {
 })
 
 app.get('/users', async (req, res) => {
-  console.log(dir)
 	const users = await User.find()
 	return res.json(users)
 })
