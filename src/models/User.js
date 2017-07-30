@@ -8,10 +8,7 @@ const UserSchema = new Schema({
   firstName: String,
   lastName: String,
   age: String,
-  following: [{
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  }],
+  followingIds: [Number],
   api: {
     type: String,
     enum: ['none', 'vk', 'fb'],
@@ -21,7 +18,7 @@ const UserSchema = new Schema({
 })
 
 UserSchema.methods.toJSON = function() {
-	return _.pick(this, ['id', 'firstName', 'lastName', 'age', 'api', 'following'])
+	return _.pick(this, ['id', 'firstName', 'lastName', 'age', 'api', 'followingIds'])
 }
 
 export default mongoose.model('User', UserSchema)

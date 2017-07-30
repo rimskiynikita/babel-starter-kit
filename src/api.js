@@ -124,22 +124,16 @@ exports.addCommunity = async function(data) {
 
 exports.addUser = async function(data) {
     try {
-      var following = []
-      for (var follower of data.following) {
-        var user = await User.findOne({
-          id: follower.id
-        }, function(err, user) {
-          if (err) throw err
-          console.log(user)
-          following.push(user._id)
-        })
+      var followingIds = []
+      if (data.followingIds != "") {
+        followingIds = await data.followingIds.split(',').map(n => parseInt(n))
       }
 
       var userData = {
         id: data.id,
         firstName: data.firstName,
         lastName: data.lastName,
-        following: following,
+        followingIds: followingIds,
         age: data.age,
         api: data.api
       }
