@@ -30,6 +30,10 @@ var Storage = multer.diskStorage({
   }
 })
 
+var upload = multer({
+    storage: Storage
+  }).single('userFile')
+
 app.post('/uploadImage', async (req, res) => {
   await upload(req, res, function (err) {
     if (err) {
@@ -180,6 +184,7 @@ app.post('/community', async (req, res) => {
 
 app.post('/user', async (req, res) => {
   const data = req.body
+  console.log(data)
   try {
     const result = await api.addUser(data)
     return res.json(data)
