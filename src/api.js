@@ -49,6 +49,8 @@ exports.addMeeting = async function(data) {
         id: data.id,
         name: data.name,
         address: data.address,
+        longtitude: data.longtitude,
+        latitude: data.latitude,
         meetDescription: data.meetDescription,
         creator: creator._id,
         participants: participants,
@@ -124,11 +126,6 @@ exports.addCommunity = async function(data) {
 
 exports.addUser = async function(data) {
     try {
-      // var followingIds = []
-      // if (data.followingIds != "") {
-      //   followingIds = await data.followingIds.split(',').map(n => parseInt(n))
-      // }
-
       var userData = {
         id: data.id,
         firstName: data.firstName,
