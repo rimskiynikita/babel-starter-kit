@@ -54,7 +54,7 @@ app.get('/meetings/:offset/:count', async (req, res) => {
 	const meetings = await Meeting.find({
   "$gte": Date.now
 	})
-  .sort('-date')
+  .sort('date')
   .skip(offset)
   .limit(count)
   .populate('creator')
